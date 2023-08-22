@@ -13,3 +13,8 @@
     background-color: transparent;
   }
 }
+
+/* :root {
+  --highlight-from: theme(colors.sky.500);
+  --highlight-to: theme(colors.gray.900);
+} */

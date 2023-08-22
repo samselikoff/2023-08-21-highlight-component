@@ -1,27 +1,26 @@
 "use client";
 
-import { useAnimate } from "framer-motion";
-import { ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   let [count, setCount] = useState(100);
 
   return (
-    <div className="p-20 mb-20">
+    <div className="mb-20 p-20">
       <button
-        className="bg-gray-700 text-white font-medium px-3 py-2 rounded"
+        className="rounded bg-gray-700 px-3 py-2 font-medium text-white"
         onClick={() => setCount(count + 1)}
       >
         Update
       </button>
 
-      <div className="grid grid-cols-3 mt-20">
-        <Highlight when={count}>
-          <div className="overflow-hidden rounded-lg border border-white border-opacity-[15%] p-3 md:px-4 md:py-5 shadow text-sky-500">
+      <div className="mt-20 grid grid-cols-3">
+        <Highlight trigger={[count]} duration={75} className="group">
+          <div className="overflow-hidden rounded-lg border border-white/[0.15] p-3 text-sky-500 shadow transition duration-1000 group-data-[state=on]:bg-sky-500 group-data-[state=on]:text-white group-data-[state=on]:duration-75 md:px-4 md:py-5">
             <dt className="truncate text-sm font-medium text-white/50">
               Total hits
             </dt>
-            <dd className="relative md:mt-2 text-lg md:text-xl tabular-nums font-semibold md:tracking-tight origin-center truncate">
+            <dd className="relative origin-center truncate text-lg font-semibold tabular-nums md:mt-2 md:text-xl md:tracking-tight">
               {count}
             </dd>
           </div>
@@ -31,24 +30,24 @@ export default function Home() {
   );
 }
 
-export function Highlight({
-  when,
-  children,
-}: {
-  when?: any;
-  children: ReactNode;
-}) {
-  let [ref, animate] = useAnimate();
-  useEffect(() => {
-    animate(
-      ref.current.firstChild,
-      {
-        backgroundColor: ["rgb(14 165 233 / 0.75)", "rgb(17 24 39)"],
-        color: ["rgb(255 255 255)", "rgb(14 165 233)"],
-      },
-      { duration: 1 },
-    );
-  }, [animate, ref, when]);
+function Highlight({ children, trigger, duration, className }) {
+  let [isHighlighting, setIsHighlighting] = useState(false);
 
-  return <div ref={ref}>{children}</div>;
+  useEffect(() => {
+    setIsHighlighting(true);
+
+    let id = setTimeout(() => {
+      setIsHighlighting(false);
+    }, duration);
+
+    return () => {
+      clearTimeout(id);
+    };
+  }, [duration, ...trigger]);
+
+  return (
+    <div data-state={isHighlighting ? "on" : "off"} className={className}>
+      {children}
+    </div>
+  );
 }
