@@ -1,8 +1,6 @@
 import Link from "next/link";
 import Highlight from "./components/highlight";
 import RefreshButton from "./components/refresh-button";
-import HighlightFM from "./components/highlight-fm";
-import HighlightFMRenderProp from "./components/highlight-fm-renderprop";
 
 let count = 0;
 export default function Home({
@@ -47,46 +45,6 @@ export default function Home({
             </dd>
           </div>
         </Highlight>
-
-        <HighlightFM
-          trigger={[count]}
-          duration={250}
-          variants={{
-            on: {
-              backgroundColor: "rgb(14 165 233)",
-              color: "rgb(255 255 255)",
-              transition: { duration: 0.075 },
-            },
-            off: {
-              backgroundColor: "rgb(17 24 39)",
-              color: "rgb(14 165 233)",
-              transition: { duration: 1 },
-            },
-          }}
-          className="overflow-hidden rounded-lg border border-white/[0.15] bg-gray-900 p-3 text-sky-500 shadow md:px-4 md:py-5"
-        >
-          <dt className="truncate text-sm font-medium text-white/50">Count</dt>
-          <dd className="relative origin-center truncate text-lg font-semibold tabular-nums md:mt-2 md:text-xl md:tracking-tight">
-            {count}
-          </dd>
-        </HighlightFM>
-
-        {/* <HighlightFMRenderProp
-          trigger={[count]}
-          duration={250}
-          className="overflow-hidden rounded-lg border border-white/[0.15] bg-gray-900 p-3 text-sky-500 shadow md:px-4 md:py-5"
-        >
-          {() => (
-            <div>
-              <dt className="truncate text-sm font-medium text-white/50">
-                Count
-              </dt>
-              <dd className="relative origin-center truncate text-lg font-semibold tabular-nums md:mt-2 md:text-xl md:tracking-tight">
-                {count}
-              </dd>
-            </div>
-          )}
-        </HighlightFMRenderProp> */}
       </div>
     </div>
   );
