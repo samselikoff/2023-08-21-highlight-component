@@ -4,12 +4,12 @@ import { ReactNode, useEffect, useState } from "react";
 
 export default function Highlight({
   children,
-  trigger = [],
+  trigger,
   duration,
   className,
 }: {
   children: ReactNode;
-  trigger: any[];
+  trigger: unknown;
   duration: number;
   className: string;
 }) {
@@ -25,7 +25,7 @@ export default function Highlight({
     return () => {
       clearTimeout(id);
     };
-  }, [duration, ...trigger]);
+  }, [duration, trigger]);
 
   return (
     <div data-state={isHighlighting ? "on" : "off"} className={className}>
